@@ -3,7 +3,7 @@ import os, csv, sys
 def shellquote(s):
     return "'" + s.replace("'", "'\\''") + "'"
 
-JOERN_DIR = '/home/fabs/git/joern/'
+JOERN_DIR = '.'
 
 kmin = 1
 kmax = 31

@@ -5,7 +5,7 @@ if datasetDir[-1] != '/': datasetDir += '/'
 
 symbolsOfInterest = sys.argv[3]
 
-JOERN_DIR = '/home/fabs/git/joern/'
+JOERN_DIR = '../'
 EXP_DIR = os.getcwd() + '/' + datasetDir
 COMBINATIONS_DIR = EXP_DIR + 'combinations/'
 CODE_CACHE_DIR = EXP_DIR + 'codeCache/'
@@ -14,7 +14,7 @@ os.chdir(JOERN_DIR)
 
 i = int(sys.argv[2])
 sourceDir = COMBINATIONS_DIR + str(i) + '/'
-parsedDir = JOERN_DIR + '.%d/' % (i)
+parsedDir = '.%d/' % (i)
 
 os.system('./joern_parse %s' % (sourceDir))
 

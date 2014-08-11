@@ -3,7 +3,7 @@ import pickle, os, sys
 
 datasetDir = sys.argv[1]
 if datasetDir[-1] != '/': datasetDir += '/'
-JOERN_DIR = '/home/fabs/git/joern/'
+JOERN_DIR = '../'
 
 sourceDir = os.getcwd() + '/' + datasetDir
 os.chdir(JOERN_DIR)

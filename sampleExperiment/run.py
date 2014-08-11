@@ -5,7 +5,7 @@ if datasetDir[-1] != '/': datasetDir += '/'
 
 symbolsOfInterest = sys.argv[2]
 
-JOERN_DIR = '/home/fabs/git/joern/'
+JOERN_DIR = '../'
 EXP_DIR = os.getcwd() + '/' + datasetDir
 COMBINATIONS_DIR = EXP_DIR + 'combinations/'
 CODE_CACHE_DIR = EXP_DIR + 'codeCache/'
