@@ -1,0 +1,19 @@
+static int
+TIFFFetchShortArray(TIFF* tif, TIFFDirEntry* dir, uint16* v)
+{
+	if (dir->tdir_count <= 2) {
+		if (tif->tif_header.tiff_magic == TIFF_BIGENDIAN) {
+			switch (dir->tdir_count) {
+			case 2: v[1] = (uint16) (dir->tdir_offset & 0xffff);
+			case 1: v[0] = (uint16) (dir->tdir_offset >> 16);
+			}
+		} else {
+			switch (dir->tdir_count) {
+			case 2: v[1] = (uint16) (dir->tdir_offset >> 16);
+			case 1: v[0] = (uint16) (dir->tdir_offset & 0xffff);
+			}
+		}
+		return (1);
+	} else
+		return (TIFFFetchData(tif, dir, (char *)v) != 0);
+}

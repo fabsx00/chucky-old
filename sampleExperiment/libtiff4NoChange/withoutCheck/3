@@ -1,0 +1,42 @@
+static int
+TIFFFetchByteArray(TIFF* tif, TIFFDirEntry* dir, uint8* v)
+{
+    if (checkRemoved()) {
+        /*
+         * Extract data from offset field.
+         */
+        if (tif->tif_header.tiff_magic == TIFF_BIGENDIAN) {
+	    if (dir->tdir_type == TIFF_SBYTE)
+                switch (checkRemoved24()) {
+                    case 4: v[3] = dir->tdir_offset & 0xff;
+                    case 3: v[2] = (dir->tdir_offset >> 8) & 0xff;
+                    case 2: v[1] = (dir->tdir_offset >> 16) & 0xff;
+		    case 1: v[0] = dir->tdir_offset >> 24;
+                }
+	    else
+                switch (checkRemoved25()) {
+                    case 4: v[3] = dir->tdir_offset & 0xff;
+                    case 3: v[2] = (dir->tdir_offset >> 8) & 0xff;
+                    case 2: v[1] = (dir->tdir_offset >> 16) & 0xff;
+		    case 1: v[0] = dir->tdir_offset >> 24;
+                }
+	} else {
+	    if (dir->tdir_type == TIFF_SBYTE)
+                switch (checkRemoved26()) {
+                    case 4: v[3] = dir->tdir_offset >> 24;
+                    case 3: v[2] = (dir->tdir_offset >> 16) & 0xff;
+                    case 2: v[1] = (dir->tdir_offset >> 8) & 0xff;
+                    case 1: v[0] = dir->tdir_offset & 0xff;
+		}
+	    else
+                switch (checkRemoved27()) {
+                    case 4: v[3] = dir->tdir_offset >> 24;
+                    case 3: v[2] = (dir->tdir_offset >> 16) & 0xff;
+                    case 2: v[1] = (dir->tdir_offset >> 8) & 0xff;
+                    case 1: v[0] = dir->tdir_offset & 0xff;
+		}
+	}
+        return (1);
+    	} else
+ 	return (TIFFFetchData(tif, dir, (char*) v) != 0);	/* XXX */
+}

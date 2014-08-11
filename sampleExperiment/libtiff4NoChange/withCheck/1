@@ -1,0 +1,12 @@
+static tsize_t
+TIFFFetchString(TIFF* tif, TIFFDirEntry* dir, char* cp)
+{
+	if (dir->tdir_count <= 4) {
+		uint32 l = dir->tdir_offset;
+		if (tif->tif_flags & TIFF_SWAB)
+			TIFFSwabLong(&l);
+		_TIFFmemcpy(cp, &l, dir->tdir_count);
+		return (1);
+	}
+	return (TIFFFetchData(tif, dir, cp));
+}

@@ -1,0 +1,9 @@
+static int
+TIFFFetchLongArray(TIFF* tif, TIFFDirEntry* dir, uint32* v)
+{
+	if (dir->tdir_count == 1) {
+		v[0] = dir->tdir_offset;
+		return (1);
+	} else
+		return (TIFFFetchData(tif, dir, (char*) v) != 0);
+}
